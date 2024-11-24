@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-import time
 import json
 import os
+import time
+
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 WAIT_TIMEOUT = 30
 
@@ -147,7 +148,8 @@ class AlexaShoppingList:
 
     def _handle_login_password_page(self):
         self.driver.find_element(By.ID, "ap_password").send_keys(self.password)
-        self.driver.find_element(By.NAME, "rememberMe").click()
+        if len(self.driver.find_element(By.NAME, "rememberMe")) > 0:
+            self.driver.find_element(By.NAME, "rememberMe").click()
         self._login_submit_button()
 
     def login_requires_mfa(self):
